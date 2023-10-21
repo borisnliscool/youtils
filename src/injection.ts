@@ -63,7 +63,7 @@ function handleRemoveStreams() {
 					(video) =>
 						video
 							.querySelector(
-								"#dismissible .details .metadata a .secondary-metadata ytd-badge-supported-renderer"
+								"#dismissible .details .metadata a .secondary-metadata ytd-badge-supported-renderer .badge p"
 							)
 							?.innerHTML.includes("LIVE") && video.remove()
 				);
