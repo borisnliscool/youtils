@@ -1,0 +1,20 @@
+{
+	"manifest_version": 3,
+	"name": "Youtils",
+	"description": "Remove Shorts and Low view videos.",
+	"version": "1.0.0",
+	"permissions": ["storage"],
+	"action": { "default_popup": "index.html" },
+	"icons": {
+		"16": "ico_16.png",
+		"32": "ico_32.png",
+		"48": "ico_48.png",
+		"128": "ico_128.png"
+	},
+	"content_scripts": [
+		{
+			"matches": ["https://www.youtube.com/*"],
+			"js": ["src/injection.ts"]
+		}
+	]
+}
