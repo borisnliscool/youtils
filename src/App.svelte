@@ -8,6 +8,7 @@
 
 	let removeShorts: boolean;
 	let removeStreams: boolean;
+	let removeStreamVODs: boolean;
 	let removeLowViewVideos: boolean;
 	let minViews: number;
 
@@ -15,12 +16,14 @@
 		const ret = await browser.storage.local.get([
 			"removeShorts",
 			"removeStreams",
+			"removeStreamVODs",
 			"removeLowViewVideos",
 			"minViews",
 		]);
 
 		removeShorts = ret.removeShorts ?? false;
 		removeStreams = ret.removeStreams ?? false;
+		removeStreamVODs = ret.removeStreamVODs ?? false;
 		removeLowViewVideos = ret.removeLowViewVideos ?? false;
 		minViews = ret.minViews ?? 1000;
 	};
@@ -39,6 +42,7 @@
 			await browser.storage.local.set({
 				removeShorts,
 				removeStreams,
+				removeStreamVODs,
 				removeLowViewVideos,
 				minViews,
 			});
@@ -68,7 +72,10 @@
 			<Checkbox label="Remove YouTube Shorts" bind:checked={removeShorts} />
 		</div>
 		<div>
-			<Checkbox label="Remove Livestreams" bind:checked={removeStreams} />
+			<Checkbox label="Remove Streams" bind:checked={removeStreams} />
+		</div>
+		<div>
+			<Checkbox label="Remove Stream VODs" bind:checked={removeStreamVODs} />
 		</div>
 		<div>
 			<Checkbox

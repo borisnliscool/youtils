@@ -74,22 +74,48 @@ function handleRemoveStreams() {
 	}
 }
 
+function handleRemoveStreamVODs() {
+	switch (window.location.pathname) {
+		case "/watch":
+			break;
+		case "/":
+		default:
+			document.querySelectorAll("ytd-rich-item-renderer").forEach((video) => {
+				video.querySelector("#metadata-line").innerHTML.includes("Streamed");
+			});
+			break;
+	}
+}
+
 async function main() {
 	if (window.location.host !== "www.youtube.com") return;
 
-	const { removeShorts, removeStreams, removeLowViewVideos, minViews } =
-		await browser.storage.local.get([
-			"removeShorts",
-			"removeStreams",
-			"removeLowViewVideos",
-			"minViews",
-		]);
+	const {
+		removeShorts,
+		removeStreams,
+		removeStreamVODs,
+		removeLowViewVideos,
+		minViews,
+	} = await browser.storage.local.get([
+		"removeShorts",
+		"removeStreams",
+		"removeStreamVODs",
+		"removeLowViewVideos",
+		"minViews",
+	]);
 
-	if (!removeShorts && !removeStreams && !removeLowViewVideos) return;
+	if (
+		!removeShorts &&
+		!removeStreams &&
+		!removeLowViewVideos &&
+		!removeStreamVODs
+	)
+		return;
 
 	const observer = new MutationObserver(() => {
 		if (removeShorts) handleRemoveShorts();
 		if (removeStreams) handleRemoveStreams();
+		if (removeStreamVODs) handleRemoveStreamVODs();
 		if (removeLowViewVideos) handleRemoveLowViewVideos(minViews);
 	});
 	observer.observe(document.body, { childList: true, subtree: true });
