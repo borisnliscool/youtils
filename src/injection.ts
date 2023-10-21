@@ -1,7 +1,11 @@
 import browser from "webextension-polyfill";
 
 function parseViewCount(viewCount: string): number {
-	const viewCountRegex = /(\d+\.*\d*)([MK]*)\s(views|watching)/;
+	if (viewCount.toLowerCase() === "no views") {
+		return 0;
+	}
+
+	const viewCountRegex = /(\d+\.*\d*)([MK]*)\s(views|view)/gi;
 	const match = viewCount.match(viewCountRegex);
 
 	if (match) {
