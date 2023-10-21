@@ -1,20 +1,17 @@
 import browser from "webextension-polyfill";
 
 function parseViewCount(viewCount: string): number {
-	if (viewCount.toLowerCase() === "no views") {
-		return 0;
-	}
-
-	const viewCountRegex = /(\d+\.*\d*)([MK]*)\s(views|view)/gi;
-	const match = viewCount.match(viewCountRegex);
+	const viewCountRegex = /([\d.]+)\s*([MK]*)\s*view/gi;
+	const match = viewCountRegex.exec(viewCount);
 
 	if (match) {
 		const count = parseFloat(match[1]);
-		const multiplier = match[2] === "M" ? 1000000 : match[2] === "K" ? 1000 : 1;
+		const match2 = match[2].toUpperCase();
+		const multiplier = match2 === "M" ? 1000000 : match2 === "K" ? 1000 : 1;
 		return Math.floor(count * multiplier);
 	}
 
-	return NaN;
+	return 0;
 }
 
 function handleRemoveLowViewVideos(minViews: number) {
@@ -26,6 +23,7 @@ function handleRemoveLowViewVideos(minViews: number) {
 					const viewCountElement = video.querySelector(
 						"#dismissible .details .metadata a .secondary-metadata #metadata #metadata-line span"
 					) as HTMLSpanElement;
+
 					if (!viewCountElement) return;
 
 					const viewCount = parseViewCount(viewCountElement.innerText);
@@ -41,7 +39,6 @@ function handleRemoveLowViewVideos(minViews: number) {
 				if (!viewCountElement) return;
 
 				const viewCount = parseViewCount(viewCountElement.innerText);
-
 				if (viewCount < minViews) video.remove();
 			});
 			break;
@@ -57,20 +54,42 @@ function handleRemoveShorts() {
 		.forEach((e) => e.innerHTML.includes("Shorts") && e.remove());
 }
 
+function handleRemoveStreams() {
+	switch (window.location.pathname) {
+		case "/watch":
+			document
+				.querySelectorAll("ytd-compact-video-renderer")
+				.forEach(
+					(video) =>
+						video
+							.querySelector(
+								"#dismissible .details .metadata a .secondary-metadata ytd-badge-supported-renderer"
+							)
+							.innerHTML.includes("LIVE") && video.remove()
+				);
+			break;
+		case "/":
+		default:
+			break;
+	}
+}
+
 async function main() {
 	if (window.location.host !== "www.youtube.com") return;
 
-	const { removeShorts, removeLowViewVideos, minViews } =
+	const { removeShorts, removeStreams, removeLowViewVideos, minViews } =
 		await browser.storage.local.get([
 			"removeShorts",
+			"removeStreams",
 			"removeLowViewVideos",
 			"minViews",
 		]);
 
-	if (!removeShorts && !removeLowViewVideos) return;
+	if (!removeShorts && !removeStreams && !removeLowViewVideos) return;
 
 	const observer = new MutationObserver(() => {
 		if (removeShorts) handleRemoveShorts();
+		if (removeStreams) handleRemoveStreams();
 		if (removeLowViewVideos) handleRemoveLowViewVideos(minViews);
 	});
 	observer.observe(document.body, { childList: true, subtree: true });
