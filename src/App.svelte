@@ -3,38 +3,72 @@
 	import browser from "webextension-polyfill";
 	import Checkbox from "./lib/Checkbox.svelte";
 	import { slide } from "svelte/transition";
+	import Toasts from "./lib/toasts/Toasts.svelte";
+	import { addToast } from "./lib/toasts/store";
 
 	let removeShorts: boolean;
+	let removeStreams: boolean;
 	let removeLowViewVideos: boolean;
 	let minViews: number;
 
-	const reset = async () => {
+	const init = async () => {
 		const ret = await browser.storage.local.get([
 			"removeShorts",
+			"removeStreams",
 			"removeLowViewVideos",
 			"minViews",
 		]);
 
 		removeShorts = ret.removeShorts ?? false;
+		removeStreams = ret.removeStreams ?? false;
 		removeLowViewVideos = ret.removeLowViewVideos ?? false;
 		minViews = ret.minViews ?? 1000;
 	};
 
-	const save = async () => {
-		browser.storage.local.set({ removeShorts, removeLowViewVideos, minViews });
+	const reset = async () => {
+		init();
+
+		addToast({
+			type: "info",
+			message: "Reset to previous save.",
+		});
 	};
 
-	onMount(reset);
+	const save = async () => {
+		try {
+			await browser.storage.local.set({
+				removeShorts,
+				removeStreams,
+				removeLowViewVideos,
+				minViews,
+			});
+
+			addToast({
+				type: "success",
+				message: "Saved settings.",
+			});
+		} catch (error) {
+			addToast({
+				type: "error",
+				message: "Failed to save settings.",
+			});
+		}
+	};
+
+	onMount(init);
 </script>
 
 <main
-	class="w-72 p-6 py-8 flex flex-col items-center gap-6 bg-neutral-800 text-white text-base"
+	class="relative w-72 p-6 py-8 flex flex-col items-center gap-6 bg-neutral-800 text-white text-base"
 >
 	<h1 class="text-3xl font-extrabold">Youtils</h1>
 
 	<div class="w-full flex flex-col gap-1">
 		<div>
 			<Checkbox label="Remove YouTube Shorts" bind:checked={removeShorts} />
+		</div>
+		<div>
+			<Checkbox label="Remove Livestreams" bind:checked={removeStreams} />
 		</div>
 		<div>
 			<Checkbox
@@ -73,5 +107,9 @@
 		>
 			Reset
 		</button>
+	</div>
+
+	<div class="absolute bottom-0 left-0 w-full">
+		<Toasts />
 	</div>
 </main>
