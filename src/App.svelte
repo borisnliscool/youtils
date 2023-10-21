@@ -67,9 +67,9 @@
 		<div>
 			<Checkbox label="Remove YouTube Shorts" bind:checked={removeShorts} />
 		</div>
-		<div>
+		<!-- <div>
 			<Checkbox label="Remove Livestreams" bind:checked={removeStreams} />
-		</div>
+		</div> -->
 		<div>
 			<Checkbox
 				label="Remove low view videos"
