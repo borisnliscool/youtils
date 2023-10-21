@@ -1,7 +1,7 @@
 {
 	"manifest_version": 3,
 	"name": "Youtils",
-	"description": "Remove Shorts and Low view videos.",
+	"description": "Remove Shorts and Low view videos from YouTube.",
 	"version": "1.0.0",
 	"permissions": ["storage"],
 	"action": { "default_popup": "index.html" },

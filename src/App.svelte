@@ -38,7 +38,7 @@
 		</div>
 		<div>
 			<Checkbox
-				label="Remove low view Videos"
+				label="Remove low view videos"
 				bind:checked={removeLowViewVideos}
 			/>
 
