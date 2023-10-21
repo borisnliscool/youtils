@@ -63,11 +63,11 @@
 </script>
 
 <main
-	class="relative w-72 p-6 py-8 flex flex-col items-center gap-6 bg-neutral-800 text-white text-base"
+	class="relative w-96 p-8 flex flex-col items-center gap-6 bg-neutral-800 text-white text-base"
 >
 	<h1 class="text-3xl font-extrabold">Youtils</h1>
 
-	<div class="w-full flex flex-col gap-1">
+	<div class="w-full flex flex-col">
 		<div>
 			<Checkbox label="Remove YouTube Shorts" bind:checked={removeShorts} />
 		</div>
@@ -84,16 +84,19 @@
 			/>
 
 			{#if removeLowViewVideos}
-				<div class="w-full mt-1" transition:slide>
+				<div
+					class="w-full my-1 ml-2 px-2 py-0.5 border-l-[.125rem] border-neutral-700"
+					transition:slide
+				>
 					<input
-						class="rounded-full overflow-hidden appearance-none bg-neutral-700 w-full accent-red-500 shadow-inner"
+						class="rounded-full overflow-hidden appearance-none bg-neutral-900 w-full accent-red-500 shadow-inner"
 						type="range"
 						min="1000"
 						max="100000"
 						step="1000"
 						bind:value={minViews}
 					/>
-					<p class="text-neutral-500 text-xs pl-2">
+					<p class="text-neutral-400 text-xs ml-1 -mt-0.5">
 						Minium views ({minViews / 1000}K)
 					</p>
 				</div>
@@ -109,7 +112,7 @@
 			Save
 		</button>
 		<button
-			class="w-full p-2 text-white border border-neutral-700 rounded-md outline-none"
+			class="w-full p-2 text-neutral-500 border border-neutral-700 rounded-md outline-none"
 			on:click={reset}
 		>
 			Reset

@@ -65,7 +65,7 @@ function handleRemoveStreams() {
 							.querySelector(
 								"#dismissible .details .metadata a .secondary-metadata ytd-badge-supported-renderer"
 							)
-							.innerHTML.includes("LIVE") && video.remove()
+							?.innerHTML.includes("LIVE") && video.remove()
 				);
 			break;
 		case "/":
@@ -81,7 +81,7 @@ function handleRemoveStreamVODs() {
 		case "/":
 		default:
 			document.querySelectorAll("ytd-rich-item-renderer").forEach((video) => {
-				video.querySelector("#metadata-line").innerHTML.includes("Streamed");
+				video.querySelector("#metadata-line")?.innerHTML.includes("Streamed");
 			});
 			break;
 	}

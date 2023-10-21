@@ -2,6 +2,7 @@
 	import { createEventDispatcher } from "svelte";
 	import type { ToastType } from "./index";
 	import Icon from "@iconify/svelte";
+	import { fade } from "svelte/transition";
 
 	export let type: ToastType = "info";
 	export let dismissible = true;
@@ -29,6 +30,7 @@
 
 <div
 	class="flex items-center justify-between text-sm {styles.bg} {styles.text}"
+	transition:fade
 >
 	<p class="p-2 px-4">
 		<slot />

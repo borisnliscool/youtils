@@ -5,7 +5,7 @@
 
 {#if $toasts}
 	<section>
-		{#each $toasts.slice(0, 3) as toast (toast.id)}
+		{#each $toasts.slice(0, 2) as toast (toast.id)}
 			<Toast
 				type={toast.type}
 				dismissible={toast.dismissible}
