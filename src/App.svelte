@@ -88,17 +88,25 @@
 					class="w-full my-1 ml-2 px-2 py-0.5 border-l-[.125rem] border-neutral-700"
 					transition:slide
 				>
-					<input
-						class="rounded-full overflow-hidden appearance-none bg-neutral-900 w-full accent-red-500 shadow-inner"
-						type="range"
-						min="1000"
-						max="100000"
-						step="1000"
-						bind:value={minViews}
-					/>
-					<p class="text-neutral-400 text-xs ml-1 -mt-0.5">
-						Minium views ({minViews / 1000}K)
-					</p>
+					<p class="text-neutral-400 text-xs ml-1 -mt-0.5">Minium views</p>
+					<div class="flex items-center gap-2">
+						<input
+							class="w-full rounded-full overflow-hidden appearance-none bg-neutral-900 accent-red-500 shadow-inner"
+							type="range"
+							min="1000"
+							max="100000"
+							step="1000"
+							bind:value={minViews}
+						/>
+
+						<input
+							type="number"
+							class="bg-transparent w-16 text-center text-neutral-400 transition-all focus:text-white outline-none focus:outline-1 focus:outline-red-500 focus:bg-red-50/5 rounded-sm [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+							min="1000"
+							max="100000"
+							bind:value={minViews}
+						/>
+					</div>
 				</div>
 			{/if}
 		</div>
