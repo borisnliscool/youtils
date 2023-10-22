@@ -80,9 +80,14 @@ function handleRemoveStreamVODs() {
 			break;
 		case "/":
 		default:
-			document.querySelectorAll("ytd-rich-item-renderer").forEach((video) => {
-				video.querySelector("#metadata-line")?.innerHTML.includes("Streamed");
-			});
+			document
+				.querySelectorAll("ytd-rich-item-renderer")
+				.forEach(
+					(video) =>
+						video
+							.querySelector("#metadata-line")
+							?.innerHTML.includes("Streamed") && video.remove()
+				);
 			break;
 	}
 }
