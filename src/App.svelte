@@ -102,8 +102,6 @@
 						<input
 							type="number"
 							class="bg-transparent w-16 text-center text-neutral-400 transition-all focus:text-white outline-none focus:outline-1 focus:outline-red-500 focus:bg-red-50/5 rounded-sm [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-							min="1000"
-							max="100000"
 							bind:value={minViews}
 						/>
 					</div>
