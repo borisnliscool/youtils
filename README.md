@@ -1,6 +1,6 @@
 # Youtils
 
-![image](https://github.com/borisnliscool/youtils/assets/60477582/2178aae8-677d-4a6c-b116-9571ffdc567d)
+![f5963cac-6629-47b3-ab17-bc95e72db744](https://github.com/borisnliscool/youtils/assets/60477582/6445bfb8-f42c-4638-acce-913e9ec32b0e)
 
 ## About
 
