@@ -77,6 +77,16 @@ function handleRemoveStreams() {
 function handleRemoveStreamVODs() {
 	switch (window.location.pathname) {
 		case "/watch":
+			document
+				.querySelectorAll("ytd-compact-video-renderer")
+				.forEach(
+					(video) =>
+						video
+							.querySelector(
+								"#dismissible .details .metadata a .secondary-metadata ytd-video-meta-block #metadata #metadata-line"
+							)
+							?.innerHTML.includes("Streamed") && video.remove()
+				);
 			break;
 		case "/":
 		default:
