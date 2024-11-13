@@ -17,7 +17,7 @@ I made this extension mainly as I was getting a lot of very random videos recomm
 
 ### Build 
 
-To build you Chrome extension, just run
+To build the Chrome extension, just run
 
 ```
 pnpm build
